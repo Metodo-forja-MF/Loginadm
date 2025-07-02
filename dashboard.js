@@ -18,9 +18,11 @@ const db = getFirestore(app);
 document.getElementById("generateBtn").addEventListener("click", async () => {
   const code = Math.random().toString(36).substring(2, 10).toUpperCase();
   try {
-    await addDoc(collection(db, "codigos_acesso"), {
-      codigo: code,
-      usado: false,
+ await setDoc(doc(db, "codigos_acesso", idAleatorio), {
+  criadoEm: new Date(),
+  usado: false,
+});
+
       criadoEm: serverTimestamp()
     });
     document.getElementById("codeDisplay").textContent = "Código gerado: " + code;
