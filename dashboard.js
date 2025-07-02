@@ -1,32 +1,29 @@
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { db } from './firebaseConfig';
+import { collection, setDoc, doc, serverTimestamp } from 'firebase/firestore';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBKtKrRP4AjLHcdeEdyTlTZC9hHdv5y7no",
-  authDomain: "metodo-forja.firebaseapp.com",
-  projectId: "metodo-forja",
-  storageBucket: "metodo-forja.appspot.com",
-  messagingSenderId: "949719386034",
-  appId: "1:949719386034:web:5c015b5fbe082821ea86ab",
-  measurementId: "G-6Z9EJLY5LZ"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-document.getElementById("generateBtn").addEventListener("click", async () => {
-  const code = Math.random().toString(36).substring(2, 10).toUpperCase();
-  try {
- await setDoc(doc(db, "codigos_acesso", idAleatorio), {
-  criadoEm: new Date(),
-  usado: false,
-});
-
-      criadoEm: serverTimestamp()
-    });
-    document.getElementById("codeDisplay").textContent = "Código gerado: " + code;
-  } catch (error) {
-    document.getElementById("codeDisplay").textContent = "Erro ao gerar código.";
+function gerarStringAleatoria(tamanho) {
+  const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let resultado = '';
+  for (let i = 0; i < tamanho; i++) {
+    resultado += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
   }
-});
+  return resultado;
+}
+
+async function gerarCodigo() {
+  const codigo = gerarStringAleatoria(8);
+
+  try {
+    // Agora o código será o ID do documento!
+    await setDoc(doc(db, 'codigos_acesso', codigo), {
+      criadoEm: serverTimestamp(),
+      usado: false
+    });
+
+    alert(`Código gerado com sucesso: ${codigo}`);
+  } catch (erro) {
+    console.error('Erro ao gerar código:', erro);
+    alert('Erro ao gerar código. Verifique o console.');
+  }
+}
