@@ -6,14 +6,16 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Firebase config
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SUA_AUTH_DOMAIN",
-  projectId: "SUA_PROJECT_ID",
-  storageBucket: "SUA_BUCKET",
-  messagingSenderId: "SEU_SENDER_ID",
-  appId: "SEU_APP_ID"
+  apiKey: "AIzaSyBKtKrRP4AjLHcdeEdyTlTZC9hHdv5y7no",
+  authDomain: "metodo-forja.firebaseapp.com",
+  databaseURL: "https://metodo-forja-default-rtdb.firebaseio.com",
+  projectId: "metodo-forja",
+  storageBucket: "metodo-forja.firebasestorage.app",
+  messagingSenderId: "949719386034",
+  appId: "1:949719386034:web:5c015b5fbe082821ea86ab",
+  measurementId: "G-6Z9EJLY5LZ"
 };
 
 const app = initializeApp(firebaseConfig);
