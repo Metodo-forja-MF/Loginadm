@@ -1,14 +1,12 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBKtKrRP4AjLHcdeEdyTlTZC9hHdv5y7no",
   authDomain: "metodo-forja.firebaseapp.com",
   databaseURL: "https://metodo-forja-default-rtdb.firebaseio.com",
   projectId: "metodo-forja",
-  storageBucket: "metodo-forja.firebasestorage.app",
+  storageBucket: "metodo-forja.appspot.com",
   messagingSenderId: "949719386034",
   appId: "1:949719386034:web:5c015b5fbe082821ea86ab",
   measurementId: "G-6Z9EJLY5LZ"
@@ -17,7 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-function gerarCodigoAleatorio(tamanho) {
+function gerarCodigoAleatorio(tamanho = 8) {
   const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let resultado = "";
   for (let i = 0; i < tamanho; i++) {
@@ -27,19 +25,25 @@ function gerarCodigoAleatorio(tamanho) {
 }
 
 async function gerarCodigo() {
-  const codigo = gerarCodigoAleatorio(8);
+  const codigo = gerarCodigoAleatorio();
 
   try {
     await setDoc(doc(db, "codigos_acesso", codigo), {
-      codigo: codigo,
+      codigo,
       criadoEm: serverTimestamp(),
       usado: false
     });
-    alert(`Código gerado: ${codigo}`);
+
+    const codigoEl = document.getElementById("codigoGerado");
+    codigoEl.textContent = `Código gerado: ${codigo}`;
+    alert(`Código gerado com sucesso: ${codigo}`);
   } catch (erro) {
-    console.error("Erro ao gerar código:", erro);
-    alert("Erro ao gerar código. Verifique o console.");
+    console.error("Erro ao gravar no Firestore:", erro);
+    alert("Erro ao gravar código no Firestore.");
   }
 }
 
-document.getElementById("gerarCodigo").addEventListener("click", gerarCodigo);
+const botao = document.getElementById("gerarCodigo");
+if (botao) {
+  botao.addEventListener("click", gerarCodigo);
+}
