@@ -3,15 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin - Gerador de Código</title>
+  <title>Admin | Método Forja</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="admin.js" defer></script>
 </head>
 <body>
   <div class="container">
-    <h1>Bem-vindo, administrador</h1>
-    <button id="gerarCodigo">Gerar Código de Acesso</button>
-    <p id="codigoGerado" class="codigo-texto"></p>
+    <h1 class="titulo">Administração</h1>
+    <button id="gerarCodigo" class="botao">Gerar Código de Acesso</button>
+    <p id="codigoGerado" class="codigo"></p>
   </div>
-  <script type="module" src="dashboard.js"></script>
+
+  <div id="modalErro" class="modal">
+    <div class="modal-content">
+      <p id="mensagemErro">Erro ao gravar código no Firestore.</p>
+      <span id="fecharModal" class="fechar">Fechar</span>
+    </div>
+  </div>
 </body>
 </html>
