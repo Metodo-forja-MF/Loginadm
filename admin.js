@@ -1,27 +1,23 @@
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import { getFirestore, setDoc, doc, Timestamp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
-import { firebaseConfig } from './firebaseConfig.js';
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.gerarCodigo = async function () {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ23456789';
-  let codigo = 'FORJA-';
-  for (let i = 0; i < 6; i++) {
-    codigo += chars.charAt(Math.floor(Math.random() * chars.length));
+function gerarCodigoAleatorio(tamanho) {
+  const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let codigo = "";
+  for (let i = 0; i < tamanho; i++) {
+    const randomIndex = Math.floor(Math.random() * caracteres.length);
+    codigo += caracteres.charAt(randomIndex);
   }
+  return codigo;
+}
 
-  try {
-    await setDoc(doc(db, "codigos_acesso", codigo), {
-      usado: false,
-      email: "",
-      criadoEm: Timestamp.now()
+function gerarCodigoUnico() {
+  const codigo = gerarCodigoAleatorio(8);
+  const docRef = db.collection("codigos_acesso").doc(codigo);
+
+  docRef.set({ usado: false })
+    .then(() => {
+      document.getElementById("codigo").innerText = "Código gerado: " + codigo;
+    })
+    .catch((error) => {
+      console.error("Erro ao gerar código:", error);
     });
-    
-    document.getElementById("codigo-container").innerText = codigo;
-  } catch (e) {
-    console.error("Erro ao adicionar documento: ", e);
-  }
-};
+}
