@@ -1,50 +1,27 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getFirestore, collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBKtKrRP4AjLHcdeEdyTlTZC9hHdv5y7no",
-  authDomain: "metodo-forja.firebaseapp.com",
-  databaseURL: "https://metodo-forja-default-rtdb.firebaseio.com",
-  projectId: "metodo-forja",
-  storageBucket: "metodo-forja.firebasestorage.app",
-  messagingSenderId: "949719386034",
-  appId: "1:949719386034:web:5c015b5fbe082821ea86ab",
-  measurementId: "G-6Z9EJLY5LZ"
-};
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getFirestore, setDoc, doc, Timestamp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+import { firebaseConfig } from './firebaseConfig.js';
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
-
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "admin-login.html";
-  }
-});
 
 window.gerarCodigo = async function () {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ23456789';
   let codigo = 'FORJA-';
   for (let i = 0; i < 6; i++) {
     codigo += chars.charAt(Math.floor(Math.random() * chars.length));
   }
 
   try {
-    await addDoc(collection(db, "codigos_acesso"), {
-      codigo: codigo,
+    await setDoc(doc(db, "codigos_acesso", codigo), {
       usado: false,
       email: "",
       criadoEm: Timestamp.now()
     });
-    document.getElementById("codigo-container").innerText = "Código gerado: " + codigo;
+    
+    document.getElementById("codigo-container").innerText = codigo;
   } catch (e) {
     console.error("Erro ao adicionar documento: ", e);
   }
-};
-
-window.logout = async function () {
-  await signOut(auth);
-  window.location.href = "admin-login.html";
 };
