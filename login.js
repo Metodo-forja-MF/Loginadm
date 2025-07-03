@@ -15,17 +15,16 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 export function login() {
-  const email = document.getElementById('email').value;
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   const errorEl = document.getElementById('loginError');
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      window.location.href = "painel.html";
-    })
-    .catch(() => {
-      errorEl.textContent = "Credenciais inválidas.";
-    });
+  if (email === 'admberti@forja.com' && password === '%Wesley99132395') {
+    window.location.href = 'painel.html';
+  } else {
+    errorEl.textContent = 'Credenciais inválidas.';
+  }
 }
 
 window.login = login;
+gin;
