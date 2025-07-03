@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Administração</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="painel.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Administração</h1>
+    <button onclick="gerarCodigo()">Gerar Código de Acesso</button>
+    <p id="codigoGerado"></p>
+    <p id="erroFirestore" class="error"></p>
+    <button onclick="logout()">Sair</button>
+  </div>
+</body>
+</html>
