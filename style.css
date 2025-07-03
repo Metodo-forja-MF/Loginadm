@@ -1,54 +1,46 @@
 body {
+  background-color: #f9f6f1;
   font-family: Arial, sans-serif;
-  background-color: #f7f5f0;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100vh;
+  margin: 0;
 }
-
 .container {
-  background-color: #fff;
+  background-color: white;
   padding: 30px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 400px;
   text-align: center;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
-
-h1 {
-  color: #444;
-}
-
 input {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
-  width: 80%;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  background-color: #ffffcc;
 }
-
 button {
-  padding: 10px 20px;
-  background-color: #d39e00;
+  background-color: #bb7a00;
+  color: white;
+  padding: 12px 24px;
   border: none;
-  color: #fff;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   margin-top: 10px;
 }
-
 button:hover {
-  background-color: #b88000;
+  background-color: #a96d00;
 }
-
 .error {
   color: red;
   margin-top: 10px;
 }
-
-.info {
+.sucesso {
   color: green;
   margin-top: 10px;
 }

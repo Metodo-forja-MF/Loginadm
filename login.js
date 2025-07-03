@@ -2,29 +2,26 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBKtKrRP4AjLHcdeEdy1TZC9nHWdv5y7n0",
+  apiKey: "AIzaSyBktKrRP4AjLUcdeEdyTlT2Q9hHdV5y7nQ",
   authDomain: "metodo-forja.firebaseapp.com",
   projectId: "metodo-forja",
   storageBucket: "metodo-forja.appspot.com",
-  messagingSenderId: "949791380634",
-  appId: "1:949791380634:web:5c015b5fbe082821ea86ab",
-  measurementId: "G-6Z92LJY5LZ"
+  messagingSenderId: "947913980364",
+  appId: "1:947913980364:web:5c1b55fbbe082821ea06ab"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export function login() {
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
-  const errorEl = document.getElementById('loginError');
+window.login = function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  if (email === 'admberti@forja.com' && password === '%Wesley99132395') {
-    window.location.href = 'painel.html';
-  } else {
-    errorEl.textContent = 'Credenciais inválidas.';
-  }
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "painel.html";
+    })
+    .catch(() => {
+      document.getElementById("loginError").textContent = "Credenciais inválidas.";
+    });
 }
-
-window.login = login;
-gin;
