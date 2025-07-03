@@ -23,7 +23,7 @@ window.gerarCodigo = async function () {
   }
 
   try {
-    await addDoc(collection(db, "codigos"), {
+    await addDoc(collection(db, "codigos_acesso"), {
       codigo: code,
       usado: false,
       criadoEm: new Date()
